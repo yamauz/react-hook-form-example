@@ -13,6 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import axios from "axios";
 
 type Inputs = {
   title: string;
@@ -28,9 +29,10 @@ export default function Home() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
-    alert("submitted!!");
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    // console.log(data);
+    const res = await axios.get("./api/upload").catch((e) => e);
+    console.log(res.data);
   };
 
   console.log(watch("textarea"));
@@ -57,11 +59,11 @@ export default function Home() {
               <Input
                 placeholder="title"
                 {...register("title", {
-                  required: "This is required",
-                  minLength: {
-                    value: 4,
-                    message: "Minimum length should be 4",
-                  },
+                  // required: "This is required",
+                  // minLength: {
+                  //   value: 4,
+                  //   message: "Minimum length should be 4",
+                  // },
                 })}
               />
               <FormHelperText>Set title</FormHelperText>
@@ -74,7 +76,7 @@ export default function Home() {
               <Select
                 placeholder="Select country"
                 {...register("country", {
-                  required: "This is required",
+                  // required: "This is required",
                 })}
               >
                 <option>United Arab Emirates</option>
